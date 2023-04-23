@@ -1,13 +1,9 @@
 import Link from 'next/link'
-import Layout from '../components/Layout'
 
 const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
+  <>
+  <h1>Neem-Base</h1><p>Neemの中央サーバー的な役割を持っています。<br />Neem-Baseは、Neemのサーバー機能を持っていません!<br /><Link href="/serverlist">サーバー一覧</Link>からあなたのお好みのサーバーを探しましょう!</p>
+  </>
 )
 
 export default IndexPage
