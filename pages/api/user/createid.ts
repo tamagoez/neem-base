@@ -24,6 +24,9 @@ export default async function handler(req, res) {
       .single();
     res.status(200).json({ success: true, secret: data.secret });
   } else {
+    tokenerror()
+  }
+  function tokenerror() {
     res.status(401).json({ success: false, message: "token is unvalid" });
   }
 }
