@@ -6,7 +6,7 @@ import { generateRandomString } from "../../../utils/random";
 import { supabaseAdmin } from "../../../utils/supabaseAdmin";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return;
+  if (req.method !== "POST") res.status(401).json({ success: false, message: "POST access only" });
   const mode = req.query.mode as number;
   const serverid = req.query.serverid as string;
   if (mode === 0) {
