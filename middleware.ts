@@ -9,21 +9,27 @@ export const config = {
 };
 
 export async function middleware(req) {
-  console.log(req.body);
-  // const tokenid = req.body.tokenid;
-  // const serverid = req.body.serverid;
+  const basicAuth = req.headers.get("authorization");
+  function tokenerror() {
+    // Respond with JSON indicating an error message
+    return new NextResponse(
+      JSON.stringify({ success: false, message: "token is unvalid" }),
+      { status: 401, headers: { "content-type": "application/json" } }
+    );
+  }
 
-  // const { data, error } = await supabaseAdmin
-  //   .from("server_internal")
-  //   .select("tokenid")
-  //   .eq("serverid", serverid)
-  //   .single();
+  if (basicAuth) {
+    const authValue = basicAuth.split(" ")[1];
+    const [tokenid, serverid] = atob(authValue).split(":");
 
-  // if (error || data.tokenid !== tokenid) {
-  //   // Respond with JSON indicating an error message
-  //   return new NextResponse(
-  //     JSON.stringify({ success: false, message: "token is unvalid" }),
-  //     { status: 401, headers: { "content-type": "application/json" } }
-  //   );
-  // }
+    const { data, error } = await supabaseAdmin
+      .from("server_internal")
+      .select("tokenid")
+      .eq("serverid", serverid)
+      .single();
+
+    if (error || data.tokenid !== tokenid) tokenerror();
+  } else {
+    tokenerror();
+  }
 }

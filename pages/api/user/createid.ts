@@ -6,9 +6,12 @@ import { generateRandomString } from "../../../utils/random";
 import { supabaseAdmin } from "../../../utils/supabaseAdmin";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") res.status(401).json({ success: false, message: "POST access only" });
+  if (req.method !== "POST")
+    res.status(401).json({ success: false, message: "POST access only" });
   const mode = req.query.mode as number;
   const serverid = req.query.serverid as string;
+  console.log(`mode: ${mode}`);
+  console.log(`serverid: ${serverid}`);
   if (mode === 0) {
     const { data, error } = await supabaseAdmin
       .from("auth_token")
@@ -24,9 +27,9 @@ export default async function handler(req, res) {
       .single();
     res.status(200).json({ success: true, secret: data.secret });
   } else {
-    tokenerror()
+    tokenerror();
   }
   function tokenerror() {
-    res.status(401).json({ success: false, message: "token is unvalid" });
+    res.status(401).json({ success: false, message: "mode is unvalid" });
   }
 }
