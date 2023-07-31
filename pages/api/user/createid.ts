@@ -15,17 +15,17 @@ export default async function handler(req, res) {
   if (mode === 0) {
     const { data, error } = await supabaseAdmin
       .from("auth_token")
-      .insert([{ serverid, mode, secret: generateRandomString(20) }])
+      .insert([{ serverid, mode, code: generateRandomString(20) }])
       .select()
       .single();
-    res.status(200).json({ success: true, secret: data.secret });
+    res.status(200).json({ success: true, code: data.secret });
   } else if (mode === 1) {
     const { data, error } = await supabaseAdmin
       .from("auth_token")
-      .insert([{ serverid, mode, secret: generateRandomString(20) }])
+      .insert([{ serverid, mode, code: generateRandomString(20) }])
       .select()
       .single();
-    res.status(200).json({ success: true, secret: data.secret });
+    res.status(200).json({ success: true, code: data.code });
   } else {
     tokenerror();
   }
