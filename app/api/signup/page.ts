@@ -1,3 +1,3 @@
-"use server"
+"use server";
 
-export default function () {}
+export default async function () {}
