@@ -8,6 +8,7 @@
 
 import { NextResponse } from "next/server";
 
-export default async function POST(request: Request, res) {
-  return NextResponse.json({});
+export async function POST(request: Request) {
+  const res = await request.json();
+  return NextResponse.json({ res });
 }
