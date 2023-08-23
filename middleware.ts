@@ -4,16 +4,24 @@ import type { NextRequest } from "next/server";
 import { supabaseAdmin } from "./utils/supabaseAdmin";
 import { validateAPIKey } from "./utils/db/validate";
 
-// Limit the middleware to paths starting with `/api/`
-export const config = {
-  matcher: "/api/:function*",
-};
-
 export async function middleware(request: NextRequest) {
-  const res = await request.json();
-  // Call our authentication function to check the request
-  if (!(await validateAPIKey(res.apikey))) {
-    // Respond with JSON indicating an error message
+  const url = request.nextUrl.pathname;
+  if (url.startsWith("/api/")) {
+    const authorization = request.headers.get("authorization");
+
+    // Call our authentication function to check the request
+    try {
+      // return;
+      const authValue = authorization.split(" ")[1];
+      await validateAPIKey(authValue);
+    } catch (error) {
+      return new NextResponse(
+        JSON.stringify({ success: false, message: "authentication failed" }),
+        { status: 401, headers: { "content-type": "application/json" } }
+      );
+    }
+  }
+  if (url.startsWith("/admin") && url !== "/admin") {
     return new NextResponse(
       JSON.stringify({ success: false, message: "authentication failed" }),
       { status: 401, headers: { "content-type": "application/json" } }
