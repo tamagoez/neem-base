@@ -9,8 +9,8 @@ import { getAdminServerList } from "../../scripts/admin/servers";
 import { getUserid } from "../../libs/supabase";
 
 export default async function () {
-  const userid = await getUserid();
-  return <>{userid ? <AdminPageWithLogined /> : <AdminPageWithNoLogined />}</>;
+  // const userid = await getUserid();
+  return <>{false ? <AdminPageWithLogined /> : <AdminPageWithNoLogined />}</>;
 }
 
 async function AdminPageWithLogined() {
