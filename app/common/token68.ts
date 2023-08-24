@@ -3,7 +3,8 @@ import crypto from "crypto";
 
 export function generateToken68(length: number) {
   // どうやら128文字くらいが丁度いいらしい...?
-  // 96文字にしてしまいます。。。
+  // Supabaseに合わせて220文字にしようと思います
+  // やっぱ128文字
   const charset =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~+/";
   const randomBytes = crypto.randomBytes(length);

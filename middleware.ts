@@ -4,10 +4,13 @@ import type { NextRequest } from "next/server";
 import { supabaseAdmin } from "./utils/supabaseAdmin";
 import { validateAPIKey } from "./utils/db/validate";
 
-export async function middleware(request: NextRequest) {
-  const url = request.nextUrl.pathname;
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const url = req.nextUrl.pathname;
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
   if (url.startsWith("/api/")) {
-    const authorization = request.headers.get("authorization");
+    const authorization = req.headers.get("authorization");
 
     // Call our authentication function to check the request
     try {
@@ -27,4 +30,5 @@ export async function middleware(request: NextRequest) {
       { status: 401, headers: { "content-type": "application/json" } }
     );
   }
+  return res;
 }
