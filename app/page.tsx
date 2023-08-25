@@ -11,7 +11,7 @@ const IndexPage = () => (
         .title_thumb {
           width: 100vw;
           height: 100vh;
-          background: linear-gradient(135deg, #d4e8fc, #e2d5fe);
+          background: linear-gradient(135deg, #434343, #000000);
           display: flex;
           justify-content: center;
         }
@@ -23,8 +23,8 @@ const IndexPage = () => (
           margin-top: 20px;
         }
         .title_text p {
-          background: linear-gradient(270deg, #f2dc6d, #db9f13);
-          background: -webkit-linear-gradient(280deg, #f2dc6d, #db9f13);
+          background: linear-gradient(270deg, #bfbfbf, #72736f);
+          background: -webkit-linear-gradient(280deg, #bfbfbf, #72736f);
           display: inline-block;
           -webkit-background-clip: text;
           background-clip: text;
