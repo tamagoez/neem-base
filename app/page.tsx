@@ -24,7 +24,7 @@ const IndexPage = () => (
         }
         .title_text p {
           background: linear-gradient(270deg, #f2dc6d, #db9f13);
-          background: -webkit-linear-gradient(280deg, #7184ff, #b3beff);
+          background: -webkit-linear-gradient(280deg, #f2dc6d, #db9f13);
           display: inline-block;
           -webkit-background-clip: text;
           background-clip: text;
