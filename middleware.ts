@@ -4,11 +4,17 @@ import type { NextRequest } from "next/server";
 import { supabaseAdmin } from "./utils/supabaseAdmin";
 import { validateAPIKey } from "./utils/db/validate";
 
+const noLoginEQ = ["/", "/auth", "/login", "/signup"];
+// const noLoginSTARTSWITH = ["/connect/"];
+const checkURLNoLogin = (url: string) => {
+  return noLoginEQ.includes(url) || url.startsWith("/connect/");
+};
+
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const url = req.nextUrl.pathname;
   const supabase = createMiddlewareClient({ req, res });
-  await supabase.auth.getSession();
+  const session = await supabase.auth.getSession();
   if (url.startsWith("/api/")) {
     const authorization = req.headers.get("authorization");
 
@@ -28,6 +34,12 @@ export async function middleware(req: NextRequest) {
     return new NextResponse(
       JSON.stringify({ success: false, message: "authentication failed" }),
       { status: 401, headers: { "content-type": "application/json" } }
+    );
+  }
+
+  if (!session && checkURLNoLogin(req.url)) {
+    return NextResponse.redirect(
+      new URL(`/auth?redirectTo=${req.url}`, req.url)
     );
   }
   return res;

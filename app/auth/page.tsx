@@ -1,9 +1,17 @@
-import AuthForm from "../common/auth-form";
+"use client";
+
+import { useState } from "react";
+import AuthFormComponent from "../common/auth-form";
 
 export default function Auth() {
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   return (
     <>
-      <AuthForm redirectTo="/" />
+      <AuthFormComponent
+        redirectTo="/dashabord"
+        authMode={authMode}
+        setAuthMode={(newState) => setAuthMode(newState)}
+      />
     </>
   );
 }
