@@ -61,7 +61,9 @@ export default function AuthFormComponent({
       <Button colorScheme="teal">
         {authMode === "login" ? "ログイン" : "新規登録"}
       </Button>
-      <Button>
+      <Button
+        onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
+      >
         {authMode === "login" ? "新規登録 " : "ログイン "}に切り替える
       </Button>
     </>
