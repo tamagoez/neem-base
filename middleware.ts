@@ -1,7 +1,7 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { supabaseAdmin } from "./utils/supabaseAdmin";
+import { useSupabaseAdmin } from "./utils/supabaseAdmin";
 import { validateAPIKey } from "./utils/db/validate";
 
 const noLoginEQ = ["/", "/auth", "/login", "/signup"];
