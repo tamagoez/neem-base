@@ -3,6 +3,7 @@ import { useSupabaseAdmin } from "../supabaseAdmin";
 export async function validateAPIKey(key: string, ip: string) {
   const supabase = useSupabaseAdmin;
   try {
+    console.log(`Access: ${key} ; ${ip}`);
     const { count, error } = await supabase
       .from("server_internal")
       .select("*", { count: "exact", head: true })
