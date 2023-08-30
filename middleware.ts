@@ -15,6 +15,7 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
   const supabase = createMiddlewareClient({ req, res });
   const session = await supabase.auth.getSession();
+
   if (url.startsWith("/api/")) {
     const authorization = req.headers.get("authorization");
     const reqIP = req.ip;
@@ -35,6 +36,7 @@ export async function middleware(req: NextRequest) {
       );
     }
   }
+
   if (url.startsWith("/admin") && url !== "/admin") {
     return new NextResponse(
       JSON.stringify({ success: false, message: "authentication failed" }),
@@ -47,5 +49,6 @@ export async function middleware(req: NextRequest) {
       new URL(`/auth?redirectTo=${req.url}`, req.url)
     );
   }
+  
   return res;
 }
