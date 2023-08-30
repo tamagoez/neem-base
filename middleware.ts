@@ -17,15 +17,20 @@ export async function middleware(req: NextRequest) {
   const session = await supabase.auth.getSession();
   if (url.startsWith("/api/")) {
     const authorization = req.headers.get("authorization");
+    const reqIP = req.ip;
 
     // Call our authentication function to check the request
     try {
       // return;
       const authValue = authorization.split(" ")[1];
-      await validateAPIKey(authValue);
+      await validateAPIKey(authValue, reqIP);
     } catch (error) {
+      console.error(error);
       return new NextResponse(
-        JSON.stringify({ success: false, message: "authentication failed" }),
+        JSON.stringify({
+          success: false,
+          message: `authentication failed: ${error.message}`,
+        }),
         { status: 401, headers: { "content-type": "application/json" } }
       );
     }

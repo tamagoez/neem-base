@@ -15,17 +15,20 @@ export async function POST(request: Request) {
     // Supabaseの設定により、それぞれにUUIDが送られてくるはずなので、それを利用する
     const { data, error } = await supabaseAdmin
       .from("signup_issue")
-      .insert({ serverId, token: undefined })
-      .select()
+      .insert({ serverId })
+      .select("requestId")
       .single();
     if (error) throw error;
     // 生成されたUUIDを使いまわす
     const requestId = data.requestId;
 
-    return new NextResponse(JSON.stringify({ success: true, message: "ok" }), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
+    return new NextResponse(
+      JSON.stringify({ success: true, message: "ok", requestId: requestId }),
+      {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      }
+    );
   } catch (error) {
     return new NextResponse(
       JSON.stringify({ success: false, message: error.message }),
