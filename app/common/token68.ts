@@ -1,7 +1,7 @@
 "use server";
 import crypto from "crypto";
 
-export function generateToken68(length: number) {
+export async function generateToken68(length: number) {
   // どうやら128文字くらいが丁度いいらしい...?
   // Supabaseに合わせて220文字にしようと思います
   // やっぱ128文字
