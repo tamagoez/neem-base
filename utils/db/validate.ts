@@ -10,7 +10,7 @@ export async function validateAPIKey(key: string, ip: string) {
       .eq("serverIP", ip);
 
     if (error) throw error;
-    console.log(`Access: ${key} ; ${ip} ; ${count}`);
+    
     if (count != 1) {
       throw new Error(
         "Something is wrong. May be you should refresh key or server id"
